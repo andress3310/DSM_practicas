@@ -22,7 +22,12 @@ function Productos(props) {
             unidades_temp[indice] +=-1;
             setUnidades(unidades_temp)
         }
-            
+    }
+
+    const calcularPrecio = () => {
+        const precio = unidades.map((u,i) => {return {u: u, p: productos[i].precio}})
+            .reduce((acc,{u,p}) => acc+u*p, 0)
+        return precio
     }
 
     useEffect(() => {
@@ -67,6 +72,7 @@ function Productos(props) {
     return (
         <>
             <Button variant="danger" onClick={comprar} >Comprar</Button>
+            <div>Coste total: {calcularPrecio()}</div>
             {contenido}
         </>
     )
