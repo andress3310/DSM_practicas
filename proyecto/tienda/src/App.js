@@ -8,6 +8,10 @@ import {useState} from 'react';
 
 function App() {
 
+  const [unidades, setUnidades] = useState(
+    []
+  );
+
   const [productos, setProductos] = useState( 
     [] 
   );
