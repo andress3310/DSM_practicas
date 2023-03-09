@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import Carrito from './modal_carrito.tsx';
+
+
 import React from 'react';
 
 
@@ -10,6 +13,9 @@ function Productos(props) {
 
     const [productos, setProductos] = useState([]);
     const [unidades, setUnidades] = useState([]);
+    const [open, setOpen] = useState(false);
+    const handleClose = () => setOpen(false);
+    const handleOpen = () => setOpen(true);
 
     const anadirProducto = (indice) => {
         const unidades_temp = [...unidades];
@@ -54,10 +60,6 @@ function Productos(props) {
             })
     },[]);
 
-    const comprar = () => {
-
-    }
-
     let contenido = <Alert variant='primary'>No hay productos</Alert>;
 
     if (productos.length > 0) {
@@ -71,8 +73,8 @@ function Productos(props) {
     }
     return (
         <>
-            <Button variant="danger" onClick={comprar} >Comprar</Button>
             <div>Coste total: {calcularPrecio()}</div>
+            <Carrito productos={productos} unidades={unidades} precio={calcularPrecio()}></Carrito>
             {contenido}
         </>
     )
