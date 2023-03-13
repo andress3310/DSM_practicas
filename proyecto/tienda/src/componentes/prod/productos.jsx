@@ -41,13 +41,15 @@ function Productos(props) {
             .then((response) => {
                 let arrayProductos = [];
                 let arrayUnidades = [];
+                let index = 0;
                 for (let key in response.data) {
                     arrayProductos.push({
-                        id: key,
+                        id: index,
                         nombre: response.data[key].Name,
                         precio: response.data[key].Price,
-                        enlace: response.data[key].Imagen
+                        enlace: response.data[key].Image
                     })
+                    index+=1
                 }
                 setProductos(arrayProductos);
                 for (let i in response.data) {

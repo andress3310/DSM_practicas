@@ -2,7 +2,10 @@ import * as React from 'react';
 import { Box, styled, Theme } from '@mui/system';
 import ModalUnstyled from '@mui/base/ModalUnstyled';
 import Button from '@mui/base/ButtonUnstyled';
+import { useNavigate } from "react-router-dom";
 import { useSpring, animated, AnyFn } from '@react-spring/web';
+import axios from 'axios';
+
 
 const BackdropUnstyled = React.forwardRef<
   HTMLDivElement,
@@ -84,6 +87,28 @@ export default function Carrito(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  let navigate = useNavigate(); 
+  const realizarPedido = (event) =>{
+    event.preventDefault();
+    const pedido = {
+        total: props.precio,
+        datetime: new Date()
+    }
+
+    axios.post('https://console.firebase.google.com/project/dsm-react-demo-andres/database/dsm-react-demo-andres-default-rtdb/data/~2F/pedidos.json',pedido,
+      {headers:{  'Access-Control-Allow-Origin' : '*',
+      'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'}}
+    )
+    .then((response)=>{
+        alert('El producto se ha insertado en la base de datos');
+    }).catch((error)=>{
+        alert('No se puede crear el producto');
+    })
+
+    let path = '../agradecimiento'; 
+    navigate(path);
+  }
+
   let contenido = <div>
             {props.productos.map((elemento: any) => {
               if (props.unidades[elemento.id]>0){
@@ -96,7 +121,7 @@ export default function Carrito(props) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Comprar</Button>
+      <Button onClick={handleOpen}>Realizar pedido</Button>
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
@@ -111,7 +136,9 @@ export default function Carrito(props) {
             <span id="spring-modal-description" style={{ marginTop: 16 }}>
               <div>{contenido}</div>
               <h3>Total (rupias): {props.precio}</h3>
-              <Button >Confirmar compra</Button>
+              <Button color="primary" className="px-4"
+              onClick={realizarPedido}
+              >Continuar</Button>
             </span>
           </Box>
         </Fade>
