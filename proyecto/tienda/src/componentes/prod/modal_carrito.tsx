@@ -90,12 +90,21 @@ export default function Carrito(props) {
   let navigate = useNavigate(); 
   const realizarPedido = (event) =>{
     event.preventDefault();
-    const pedido = {
-        total: props.precio,
-        datetime: new Date()
+    const prods = {}
+
+    for (let i = 0; i < props.unidades.length; i++){
+      if (props.unidades[i]>0){
+        prods[props.productos[i].nombre] = props.unidades[i]
+      }
     }
 
-    axios.post('https://console.firebase.google.com/project/dsm-react-demo-andres/database/dsm-react-demo-andres-default-rtdb/data/~2F/pedidos.json',pedido,
+    const pedido = {
+        total: props.precio,
+        datetime: new Date(),
+        productos: prods
+    }
+
+    axios.post('https://dsm-react-demo-andres-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json',pedido,
       {headers:{  'Access-Control-Allow-Origin' : '*',
       'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'}}
     )
