@@ -11,6 +11,19 @@ import React from 'react';
 function Pedidos(props) {
 
     const [pedidos, setPedidos] = useState([]);
+    const borrarPedido = (nombre) => {
+        const pedidos_temp = [...pedidos];
+        let indice=0;
+        for (let index in pedidos_temp){
+            if(pedidos_temp[index].name==nombre){
+                indice=index;
+            }
+        }
+        const nombrePedido=pedidos[indice].name
+        pedidos_temp.splice(indice, 1);
+        axios.delete('https://dsm-react-demo-andres-default-rtdb.europe-west1.firebasedatabase.app/pedidos/'+nombrePedido+'.json')
+        setPedidos(pedidos_temp)
+    }
 
     useEffect(() => {
         axios.get('https://dsm-react-demo-andres-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json')
@@ -22,7 +35,8 @@ function Pedidos(props) {
                         id: index,
                         datetime: response.data[key].datetime,
                         productos: response.data[key].productos,
-                        total: response.data[key].total
+                        total: response.data[key].total,
+                        name:key
                     })
                     index+=1
                 }
@@ -38,7 +52,7 @@ function Pedidos(props) {
         contenido = <div>
             {pedidos.map((elemento) => {
                 return (
-                    <Pedido pedido={elemento}/>
+                    <Pedido pedido={elemento} borrarPedido={borrarPedido}/>
                 )
             })}
         </div>

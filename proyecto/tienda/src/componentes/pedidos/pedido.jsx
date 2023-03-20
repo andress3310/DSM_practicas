@@ -10,6 +10,8 @@ function Pedido(props) {
     const total = props.pedido.total;
     const productos = props.pedido.productos;
     const fecha = props.pedido.datetime;
+    const id= props.pedido.id;
+    const name=props.pedido.name;
 
     let entries = Object.entries(productos);
     let entry;
@@ -35,10 +37,12 @@ function Pedido(props) {
     return (
         <div className='pedido' onClick={toggleOpen}>
             <div>
+                <h3>{name}</h3>
                 <h4>Pedido realizado el: {fecha}</h4>
                 <div>Precio total: {total} rupias.</div>
                 {detalles}
             </div>
+            <Button variant="danger" onClick={() => {props.borrarPedido(name)}} >BORRAR PEDIDO</Button>
         </div>
     )
 }

@@ -103,7 +103,7 @@ export default function Carrito(props) {
         datetime: new Date(),
         productos: prods
     }
-
+    //axios.delete('https://dsm-react-demo-andres-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json')
     axios.post('https://dsm-react-demo-andres-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json',pedido,
       {headers:{  'Access-Control-Allow-Origin' : '*',
       'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'}}
@@ -116,6 +116,7 @@ export default function Carrito(props) {
 
     let path = '../agradecimiento'; 
     navigate(path);
+
   }
 
   let contenido = <div>
