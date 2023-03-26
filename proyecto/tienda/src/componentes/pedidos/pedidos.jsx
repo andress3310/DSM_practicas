@@ -11,22 +11,24 @@ import React from 'react';
 function Pedidos(props) {
 
     const [pedidos, setPedidos] = useState([]);
+    const [seeModal,setSeeModal] = useState(false);
+
     const borrarPedido = (nombre) => {
         const pedidos_temp = [...pedidos];
         let indice=0;
         for (let index in pedidos_temp){
-            if(pedidos_temp[index].name==nombre){
+            if(pedidos_temp[index].name===nombre){
                 indice=index;
             }
         }
         const nombrePedido=pedidos[indice].name
         pedidos_temp.splice(indice, 1);
-        axios.delete('https://dsm-react-demo-andres-default-rtdb.europe-west1.firebasedatabase.app/pedidos/'+nombrePedido+'.json')
+        axios.delete('https://proyecto-dsm-db5ee-default-rtdb.europe-west1.firebasedatabase.app/pedidos/'+nombrePedido+'.json')
         setPedidos(pedidos_temp)
     }
 
     useEffect(() => {
-        axios.get('https://dsm-react-demo-andres-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json')
+        axios.get('https://proyecto-dsm-db5ee-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json')
             .then((response) => {
                 let arrayPedidos = [];
                 let index = 0;
@@ -48,6 +50,7 @@ function Pedidos(props) {
 
     let contenido = <Alert variant='primary'>No se ha registrado ningún pedido</Alert>;
 
+    console.log(pedidos.length)
     if (pedidos.length > 0) {
         contenido = <div>
             {pedidos.map((elemento) => {
@@ -55,11 +58,12 @@ function Pedidos(props) {
                     <Pedido pedido={elemento} borrarPedido={borrarPedido}/>
                 )
             })}
+            
         </div>
     }
     return (
         <>
-            {contenido}
+        {contenido}
         </>
     )
 }

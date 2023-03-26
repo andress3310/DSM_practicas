@@ -104,7 +104,8 @@ export default function Carrito(props) {
         productos: prods
     }
     //axios.delete('https://dsm-react-demo-andres-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json')
-    axios.post('https://dsm-react-demo-andres-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json',pedido,
+    //https://proyecto-dsm-db5ee-default-rtdb.europe-west1.firebasedatabase.app/
+    axios.post('https://proyecto-dsm-db5ee-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json',pedido,
       {headers:{  'Access-Control-Allow-Origin' : '*',
       'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'}}
     )
