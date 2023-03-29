@@ -13,17 +13,8 @@ import Pedidos from './componentes/pedidos/pedidos';
 
 function App() {
 
-  const [unidades, setUnidades] = useState(
-    []
-  );
-
-  const [productos, setProductos] = useState( 
-    [] 
-  );
   const titulos = {titulo: 'Productos', subtitulo: 'de gran calidad y a buen precio'}
-
-
-
+  
 return (
   <div>
     <Header titulos={titulos}/>
