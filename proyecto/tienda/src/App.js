@@ -30,6 +30,7 @@ return (
     <MenuUI></MenuUI>
     <Routes>
       <Route path='/products' element={<Productos></Productos>} />
+      <Route path='/' element={<Productos></Productos>} />
       <Route path='/agradecimiento' element={<Agradecimiento></Agradecimiento>} />
       <Route path='*' element={<ErrorPage/>} />
       <Route path='/pedidos' element={<Pedidos></Pedidos>} />
