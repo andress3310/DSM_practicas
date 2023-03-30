@@ -4,12 +4,15 @@ import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Carrito from './modal_carrito.tsx';
-
+import {useContext , createContext} from 'react';
+import UserContext from '../../UserContext';
 
 import React from 'react';
 
 
 function Productos(props) {
+
+    const contexto = useContext(UserContext);
 
     const [productos, setProductos] = useState([]);
     const [unidades, setUnidades] = useState([]);
@@ -76,7 +79,7 @@ function Productos(props) {
     return (
         <>
             <div>Coste total: {calcularPrecio()}</div>
-            <Carrito productos={productos} unidades={unidades} precio={calcularPrecio()}></Carrito>
+            <Carrito productos={productos} unidades={unidades} precio={calcularPrecio()} context={contexto}></Carrito>
             {contenido}
         </>
     )

@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import React from 'react';
 import './pedido.css'
 import Modal from 'react-bootstrap/Modal'
+import UserContext from '../../UserContext';
 
 function Pedido(props) {
 
@@ -11,6 +12,7 @@ function Pedido(props) {
     const fecha = props.pedido.datetime;
     const id= props.pedido.id;
     const name=props.pedido.name;
+    const address=props.pedido.address;
 
     let entries = Object.entries(productos);
     let entry;
@@ -53,6 +55,7 @@ function Pedido(props) {
             <div>
                 <h3>{name}</h3>
                 <h4>Pedido realizado el: {fecha}</h4>
+                <h5>Se entrega en: {address}</h5>
                 <div>Precio total: {total} rupias.</div>
                 {detalles}
             </div>

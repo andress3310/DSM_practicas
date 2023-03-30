@@ -9,24 +9,43 @@ import ErrorPage from './pages/ErrorPage';
 import Agradecimiento from './pages/Agradecimiento'
 import { Route, Routes } from 'react-router-dom';
 import Pedidos from './componentes/pedidos/pedidos';
-
+import React from 'react';
+import { createContext } from "react";
+import ReactDOM from "react-dom/client";
+import UserContext from './UserContext';
 
 function App() {
+  
+  const [user, setUser] = useState('');
+  const [unidades, setUnidades] = useState(
+    []
+  );
+
+  const [productos, setProductos] = useState( 
+    [] 
+  );
 
   const titulos = {titulo: 'Productos', subtitulo: 'de gran calidad y a buen precio'}
   
 return (
   <div>
+    <UserContext.Provider
+      value={{
+        user:user,
+        setUser:setUser
+      }}
+    >
     <Header titulos={titulos}/>
     <MenuUI></MenuUI>
     <Routes>
       <Route path='/products' element={<Productos></Productos>} />
-      <Route path='/' element={<Productos></Productos>} />
       <Route path='/agradecimiento' element={<Agradecimiento></Agradecimiento>} />
       <Route path='*' element={<ErrorPage/>} />
       <Route path='/pedidos' element={<Pedidos></Pedidos>} />
+      <Route path='/' element={<Productos></Productos>} />
     </Routes>
     <Footer/>
+    </UserContext.Provider>
   </div>
 );
 }

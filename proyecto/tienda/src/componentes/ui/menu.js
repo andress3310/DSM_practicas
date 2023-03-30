@@ -4,19 +4,30 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import {useState} from 'react';
 import { Link } from "react-router-dom";
-
+import {useContext , createContext} from 'react';
+import UserContext from '../../UserContext';
 
 
 function MenuUI() {
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const contexto = useContext(UserContext);
   
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout=()=>{
+    contexto.setUser('');
+  }
   
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  let logout=<div></div>
+
+  if(contexto.user!=''){
+    logout=<Button onClick={handleLogout}>Logout</Button>
+  }
 
     return (
         <div
@@ -37,6 +48,7 @@ function MenuUI() {
             <MenuItem onClick={handleClose}><Link to="/products" className="btn btn-primary">Productos</Link></MenuItem>
             <MenuItem onClick={handleClose}><Link to="/pedidos" className="btn btn-primary">Pedidos</Link></MenuItem>
         </Menu>
+        {logout}
         </div>
     );
     };
