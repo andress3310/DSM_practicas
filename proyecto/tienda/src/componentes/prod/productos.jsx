@@ -1,4 +1,5 @@
 import Producto from './producto';
+import './producto.css';
 import { useEffect, useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
@@ -35,7 +36,7 @@ function Productos(props) {
 
     const calcularPrecio = () => {
         const precio = unidades.map((u,i) => {return {u: u, p: productos[i].precio}})
-            .reduce((acc,{u,p}) => acc+u*p, 0)
+            .reduce((acc,{u,p}) => acc+u*p, 0).toFixed(2)
         return precio
     }
 
@@ -78,9 +79,11 @@ function Productos(props) {
     }
     return (
         <>
-            <div>Coste total: {calcularPrecio()}</div>
-            <Carrito productos={productos} unidades={unidades} precio={calcularPrecio()} context={contexto}></Carrito>
-            {contenido}
+            <div className='cabecera'>
+                <h4>Coste total: {calcularPrecio()}</h4>
+                <Carrito productos={productos} unidades={unidades} precio={calcularPrecio()} context={contexto}></Carrito>
+            </div>
+                {contenido}
         </>
     )
 }

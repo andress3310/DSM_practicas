@@ -22,7 +22,7 @@ function Pedidos(props) {
 
     const iniciarSesion = (event) => {
         event.preventDefault();
-        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDVgDg-ryUgmp9aRnRbWxC4Ql9EJaoGaVg',
+        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDv9kit4z1r-px3Rt1Q7qgc0iLCg7GPMa8',
         {email:email,password:pass,returnSecureToken:true})
       .then((response)=>{
         contexto.setUser(response)
@@ -52,12 +52,11 @@ function Pedidos(props) {
                 let arrayPedidos = [];
                 let index = 0;
                 for (let key in response.data) {
-                    console.log(response.data[key])
                     arrayPedidos.push({
                         id: index,
                         datetime: response.data[key].datetime,
-                        productos: response.data[key].productos,
-                        total: response.data[key].total,
+                        productos: response.data[key].productos ?? ['Pedido vacío'],
+                        total: response.data[key].total ?? 0,
                         address:response.data[key].adrress,
                         email:response.data[key].email,
                         name:key
@@ -71,13 +70,10 @@ function Pedidos(props) {
     },[]);
     let pedidosUser=[]
     let contenido = <Alert variant='primary'>No se ha registrado ningún pedido</Alert>;
-    console.log(contexto.user)
     if(contexto.user!=''){
-        console.log('ola')
         pedidosUser=pedidos.filter(element=>element.email==contexto.user.data.email)
     }
 
-    console.log(pedidosUser)
     if (pedidosUser.length > 0) {
         contenido = <div>
             {pedidosUser.map((elemento) => {
@@ -95,7 +91,7 @@ function Pedidos(props) {
         Inicie sesión para ver sus pedidos
         </Form.Text>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email Adress</Form.Label>
+        <Form.Label>Email Address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" onChange={(event) => setEmail(event.target.value)}/>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
