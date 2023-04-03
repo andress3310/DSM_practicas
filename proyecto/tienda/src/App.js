@@ -25,7 +25,7 @@ function App() {
     [] 
   );
 
-  const titulos = {titulo: 'Productos', subtitulo: 'de gran calidad y a buen precio'}
+  const titulos = {titulo: 'Teletienda', subtitulo: 'el lugar donde comprar las telecosas'}
   
 return (
   <div>

@@ -7,7 +7,7 @@ import React from 'react';
 
 function Producto(props) {
 
-    const [nombre, setNombre] = useState(props.producto.nombre);
+    const nombre = props.producto.nombre;
     const precio = props.producto.precio;
     const enlace = require('./img/'+props.producto.enlace)
     const unidades = props.unidades;
